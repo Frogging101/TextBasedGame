@@ -2,9 +2,10 @@ package com.fastquake.textbasedgame;
 
 import java.io.*;
 
-public class TextBasedGame {
+import com.fastquake.textbasedgame.room.RoomManager;
 
-	static RoomManager rm;
+public class TextBasedGame {
+	public static RoomManager rm;
 	static int currentRoom;
 	
 	/**
