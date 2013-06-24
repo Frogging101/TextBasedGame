@@ -8,6 +8,7 @@ public class RoomManager {
 	private ArrayList<Room> rooms;
 	
 	public RoomManager(){
+		rooms = new ArrayList<Room>();
 		rooms.add(new Room1());
 	}
 	
