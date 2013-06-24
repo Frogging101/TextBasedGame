@@ -3,12 +3,13 @@ package com.fastquake.textbasedgame.room;
 import com.fastquake.textbasedgame.Direction;
 
 public class Room {
-	Door[] doors;
-	protected int doorCount;
+	private Door[] doors;
+	private int doorCount;
 	protected int id;
 	
 	protected Room(){
 		doors = new Door[4]; //Initialize the Door array
+		doorCount = 0;
 	}
 	
 	public void describe(){
@@ -27,14 +28,17 @@ public class Room {
 			if(doors[i] != null){
 				doorString += iDir;
 				appendedDoors++;
+				if(appendedDoors == doorCount){
+					doorString += ".";
+					break;
+				}else if(doorCount != 2)
+					doorString += ", ";
 			}
-			if(appendedDoors == doorCount){
-				doorString += ".";
-				break;
-			}else
-				doorString += ",";
-			if(appendedDoors == doorCount-1)
-				doorString += " and ";
+			if(appendedDoors == doorCount-1 && doors[i+1] != null && doorCount != 1){
+				if(doorCount == 2)
+					doorString += " ";
+				doorString += "and ";
+			}
 		}
 		System.out.println(doorString);
 		//TODO: Print items
@@ -42,5 +46,10 @@ public class Room {
 	
 	public int getId(){
 		return id;
+	}
+	
+	protected void addDoor(Direction direction, int targetId){
+		this.doors[direction.ordinal()] = new Door(direction,targetId);
+		this.doorCount++;
 	}
 }
