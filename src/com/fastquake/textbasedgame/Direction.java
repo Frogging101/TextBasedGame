@@ -3,6 +3,10 @@ package com.fastquake.textbasedgame;
 public enum Direction {
 	NORTH, SOUTH, EAST, WEST;
 	
+	/**
+	 * Converts the enumerated compass direction to a human-readable String
+	 * @return String, such as "North"
+	 */
 	public String toString(){
 		if(this == this.NORTH)
 			return "North";

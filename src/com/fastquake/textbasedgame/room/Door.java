@@ -5,11 +5,9 @@ import com.fastquake.textbasedgame.TextBasedGame;
 import com.fastquake.textbasedgame.room.*;
 
 public class Door {
-	Direction direction;
 	int targetId;
 	
-	Door(Direction direction, int targetId){
-		this.direction = direction;
+	Door(int targetId){
 		this.targetId = targetId;
 	}
 }

@@ -48,8 +48,12 @@ public class Room {
 		return id;
 	}
 	
+	/**
+	 * Adds a door to the Room
+	 * @param targetId The ID of the target room that the door leads to
+	 */
 	protected void addDoor(Direction direction, int targetId){
-		this.doors[direction.ordinal()] = new Door(direction,targetId);
+		this.doors[direction.ordinal()] = new Door(targetId);
 		this.doorCount++;
 	}
 }
