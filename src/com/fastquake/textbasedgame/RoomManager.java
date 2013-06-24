@@ -2,6 +2,8 @@ package com.fastquake.textbasedgame;
 
 import java.util.ArrayList;
 
+import com.fastquake.textbasedgame.room.Room;
+
 public class RoomManager {
 	private ArrayList<Room> rooms;
 	
