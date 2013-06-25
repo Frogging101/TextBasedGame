@@ -1,7 +1,8 @@
-package gameobject;
+package com.fastquake.textbasedgame.gameobject;
 
 import java.util.ArrayList;
-import gameitem.GameItem;
+
+import com.fastquake.textbasedgame.gameitem.GameItem;
 
 /**
  * Class for Game Objects, which are world features that the player can interact with

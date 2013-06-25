@@ -1,4 +1,4 @@
-package gameitem;
+package com.fastquake.textbasedgame.gameitem;
 
 public class GameItem {
 	protected String name;

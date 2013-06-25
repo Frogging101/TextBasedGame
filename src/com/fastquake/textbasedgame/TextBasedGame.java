@@ -1,9 +1,9 @@
 package com.fastquake.textbasedgame;
 
-import gameobject.GameObject;
 
 import java.io.*;
 
+import com.fastquake.textbasedgame.gameobject.GameObject;
 import com.fastquake.textbasedgame.room.Room;
 import com.fastquake.textbasedgame.room.RoomManager;
 
@@ -23,7 +23,7 @@ public class TextBasedGame {
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		
 		System.out.println("Welcome to TextBasedGame.");
-		System.out.println("Type \"play\" to start a new game, or \"load\" to load a previous game.");
+		//System.out.println("Type \"play\" to start a new game, or \"load\" to load a previous game.");
 		System.out.println();
 
 		while(!doShutdown){

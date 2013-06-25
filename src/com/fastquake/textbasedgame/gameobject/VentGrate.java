@@ -1,4 +1,4 @@
-package gameobject;
+package com.fastquake.textbasedgame.gameobject;
 
 public class VentGrate extends GameObject{
 	boolean electrified;

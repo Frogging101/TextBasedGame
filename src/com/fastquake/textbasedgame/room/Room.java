@@ -2,9 +2,9 @@ package com.fastquake.textbasedgame.room;
 
 import java.util.ArrayList;
 
-import gameobject.GameObject;
 
 import com.fastquake.textbasedgame.Direction;
+import com.fastquake.textbasedgame.gameobject.GameObject;
 
 public class Room {
 	private Door[] doors;
