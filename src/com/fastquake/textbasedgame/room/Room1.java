@@ -1,11 +1,13 @@
 package com.fastquake.textbasedgame.room;
 
 import com.fastquake.textbasedgame.Direction;
+import com.fastquake.textbasedgame.gameobject.VentGrate;
 
 public class Room1 extends Room {
 	Room1(){
 		super();
 		addDoor(Direction.NORTH,1);
+		objects.add(new VentGrate());
 		this.id = 1;
 	}
 	

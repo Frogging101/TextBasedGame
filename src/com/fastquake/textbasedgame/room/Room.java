@@ -10,7 +10,7 @@ public class Room {
 	private Door[] doors;
 	private int doorCount;
 	protected int id;
-	private ArrayList<GameObject> objects;
+	protected ArrayList<GameObject> objects;
 	
 	protected Room(){
 		doors = new Door[4]; //Initialize the Door array
