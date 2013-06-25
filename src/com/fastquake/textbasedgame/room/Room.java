@@ -56,4 +56,16 @@ public class Room {
 		this.doors[direction.ordinal()] = new Door(targetId);
 		this.doorCount++;
 	}
+	
+	/**
+	 * Gets the target of a door in a specified direction, if one exists
+	 * @param direction The direction of the door
+	 * @return A Room object if there is a door in the specified direction, otherwise null
+	 */
+	public Room getDoorTarget(Direction direction, RoomManager rm){
+		if(doors[direction.ordinal()] != null)
+			return rm.getRoomById(doors[direction.ordinal()].targetId);
+		else
+			return null;
+	}
 }

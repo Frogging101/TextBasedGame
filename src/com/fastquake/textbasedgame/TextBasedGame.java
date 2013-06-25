@@ -2,11 +2,12 @@ package com.fastquake.textbasedgame;
 
 import java.io.*;
 
+import com.fastquake.textbasedgame.room.Room;
 import com.fastquake.textbasedgame.room.RoomManager;
 
 public class TextBasedGame {
 	public static RoomManager rm;
-	static int currentRoom;
+	static Room currentRoom;
 	
 	/**
 	 * @param args
@@ -14,7 +15,7 @@ public class TextBasedGame {
 	 */
 	public static void main(String[] args) throws IOException {
 		boolean doShutdown = false;
-		currentRoom = 1;
+		currentRoomId = 1;
 		rm = new RoomManager();
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -22,9 +23,10 @@ public class TextBasedGame {
 		System.out.println("Type \"play\" to start a new game, or \"load\" to load a previous game.");
 
 		while(!doShutdown){
+			currentRoom = rm.getRoomById(currentRoomId);
 			String command = "";
 			
-			rm.getRoomById(currentRoom).describe();
+			currentRoom.describe();
 			System.out.println();
 			System.out.print("> ");
 			command = input.readLine();
@@ -39,18 +41,18 @@ public class TextBasedGame {
 		String object = "";
 		
 		if(command.equals("north") || command.equals("n")){
-			//TODO: Move north
+			currentRoom = currentRoom.getDoorTarget(Direction.NORTH, rm);
 		}else if(command.equals("east") || command.equals("e")){
-			//TODO: Move east
+			currentRoom = currentRoom.getDoorTarget(Direction.EAST, rm);
 		}else if(command.equals("south") || command.equals("s")){
-			//TODO: Move south
+			currentRoom = currentRoom.getDoorTarget(Direction.SOUTH, rm);
 		}else if(command.equals("west") || command.equals("w")){
-			//TODO: Move west
+			currentRoom = currentRoom.getDoorTarget(Direction.WEST, rm);
 		}else if(command.equals("look") || command.equals("examine")){
 			if(splitCommand.length>1){
 				//TODO: Handle object arguments, also "look at"
 			}else
-				rm.getRoomById(currentRoom).describe();
+				currentRoom.describe();
 		}else if(command.equals("open")){
 			//TODO: Open
 		}
