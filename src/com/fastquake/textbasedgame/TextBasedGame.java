@@ -25,6 +25,12 @@ public class TextBasedGame {
 		rm = new RoomManager();
 		input = new BufferedReader(new InputStreamReader(System.in));
 		
+		loadScores(1);
+		
+		File scoresFile = new File("scores.txt");
+		if(!scoresFile.exists()) //If the file doesn't exist
+			scoresFile.createNewFile(); //Create it
+		
 		System.out.println("Welcome to TextBasedGame.");
 		//System.out.println("Type \"play\" to start a new game, or \"load\" to load a previous game.");
 		System.out.println();
@@ -128,7 +134,7 @@ public class TextBasedGame {
 				if(!(i+1>=splitCommand.length)){ //If there is a next word
 					splitCommand[i] = null;
 					for(int k=i;k<splitCommand.length-1;k++)
-						swap(splitCommand,k,k+1);
+						arraySwap(splitCommand,k,k+1);
 					ignoredWords++;
 					i--;
 				}else
@@ -145,10 +151,10 @@ public class TextBasedGame {
 		return objectStr;
 	}
 	
-	public static void swap(String array2[], int first, int second) {
-		String hold = array2[first];
-		array2[first] = array2[second];
-		array2[second] = hold;
+	public static void arraySwap(String array[], int first, int second) {
+		String hold = array[first];
+		array[first] = array[second];
+		array[second] = hold;
 	}
 	
 	public static void playerDie(){
@@ -161,12 +167,129 @@ public class TextBasedGame {
 			if(response.equals("1")){
 				main(null);
 			}else if(response.equals("2")){
-				//TODO: Show high score list
+				System.out.println("Would you like to sort them by time (most-to-least recent) or score (highest to lowest)?");
+				while(true){ //Input verification loop
+					System.out.print("Enter \"score\" or \"time\": ");
+					response = input.readLine().toLowerCase();
+					if(response.equals("time")){
+						loadScores(1);
+						break;
+					}
+					if(response.equals("score")){
+						loadScores(2);
+						break;
+					}
+					else{
+						System.out.println("Invalid selection. Please try again.");
+						continue;
+					}
+				}
 			}else
 				System.exit(0);
 		}catch(IOException e){ 	//Catch this so everything that calls it won't break. It'll never happen anyway.
 			e.printStackTrace();
 			System.exit(1);
 		}
+	}
+	
+	/**
+	 * Writes a line to the scores file in the format of:
+	 * [current-unix-time]:[score]
+	 * @throws IOException
+	 */
+	public static void saveScore() throws IOException{
+		PrintWriter fileOut = new PrintWriter(new FileWriter("scores.txt",true));
+		long curTime = System.currentTimeMillis() / 1000L;
+		fileOut.println(curTime + ":" + score);
+		System.out.println("Your score has been saved.");
+	}
+	
+	/**
+	 * Loads and displays scores sorted in a format specified by the user
+	 * @param sortField 1 to sort by time, 2 to sort by score
+	 * @throws IOException
+	 */
+	public static void loadScores(int sortField) throws IOException{
+		BufferedReader fileIn;
+		Score[] scores;
+		int lineCount = 0;
+		
+		try{
+			fileIn = new BufferedReader(new FileReader("scores.txt"));
+		}catch(FileNotFoundException e){	//This shouldn't happen unless the user was 
+											//derping around with the files while the game is running
+			File newFile = new File("scores.txt");
+			newFile.createNewFile();
+			fileIn = new BufferedReader(new FileReader("scores.txt"));
+		}
+		while(fileIn.ready()){
+			fileIn.readLine();
+			lineCount++;
+		}
+		scores = new Score[lineCount];
+		
+		fileIn.close();
+		//The file needs to be reopened so that it can be read again.
+		fileIn = new BufferedReader(new FileReader("scores.txt"));
+		
+		for(int i=0;i<lineCount;i++){
+			String curLine = fileIn.readLine();
+			String[] curLineArray = curLine.split(":");
+			//Now we have an array containing the score and time as separate elements 
+			//Create a score object out of these
+			scores[i] = new Score(Long.parseLong(curLineArray[0]),Integer.parseInt(curLineArray[1]));
+		}
+		
+		
+	}
+	
+	/**
+	 * Sorts a score array from highest to lowest score
+	 * @param unsorted Unsorted Score array
+	 * @return Sorted-by-score Score array
+	 */
+	private static Score[] sortByScore(Score[] unsorted){
+		Score[] sorted = new Score[unsorted.length];
+		
+		for(int i=0,j=0;i<unsorted.length;i++){
+			Score largest = unsorted[i];
+			largest.score = Integer.MIN_VALUE;
+			int lastLargestIndex = 0;
+			for(int k=0;k<unsorted.length;k++){
+				if(unsorted[k].time > largest.time && unsorted[k].time != -1){
+					largest = unsorted[k];
+					lastLargestIndex = k;
+				}
+			}
+			unsorted[lastLargestIndex].score = -1;
+			sorted[j] = largest;
+			j++;
+		}
+		return sorted;
+	}
+	
+	/**
+	 * Sorts a score array from most recent to most distant time
+	 * @param unsorted Unsorted Score array
+	 * @return Sorted-by-time Score array
+	 */
+	private static Score[] sortByTime(Score[] unsorted){
+		Score[] sorted = new Score[unsorted.length];
+		
+		for(int i=0,j=0;i<unsorted.length;i++){
+			Score largest = unsorted[i];
+			largest.time = Long.MIN_VALUE;
+			int lastLargestIndex = 0;
+			for(int k=0;k<unsorted.length;k++){
+				if(unsorted[k].time > largest.time && unsorted[k].time != -1){
+					largest = unsorted[k];
+					lastLargestIndex = k;
+				}
+			}
+			unsorted[lastLargestIndex].time = -1;
+			sorted[j] = largest;
+			j++;
+		}
+		return sorted;
 	}
 }

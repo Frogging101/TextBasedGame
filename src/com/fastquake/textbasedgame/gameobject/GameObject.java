@@ -19,11 +19,16 @@ public class GameObject {
 	protected boolean openable;
 	protected boolean open;
 	protected boolean container;
+	protected boolean examined;
 	
 	protected ArrayList<GameItem> contains;
 	
 	public void describe(){
 		System.out.println(this.examineText);
+		if(!examined){
+			System.out.println("I have examined me or some such shit");
+		}
+		examined = true;
 	}
 	
 	/**

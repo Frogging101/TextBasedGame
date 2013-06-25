@@ -103,8 +103,8 @@ public class Room {
 	public GameObject getObjectByName(String requestedName){
 		for(int i=0;i<objects.size();i++){
 			GameObject currentObject = objects.get(i);
-			for(int k=0;k<currentObject.getNames().length;k++){
-				if(currentObject.getNames()[k].equals(requestedName))
+			for(int j=0;j<currentObject.getNames().length;j++){
+				if(currentObject.getNames()[j].equals(requestedName))
 					return currentObject;
 			}
 		}
