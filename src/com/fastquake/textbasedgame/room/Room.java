@@ -1,11 +1,14 @@
 package com.fastquake.textbasedgame.room;
 
+import gameobject.GameObject;
+
 import com.fastquake.textbasedgame.Direction;
 
 public class Room {
 	private Door[] doors;
 	private int doorCount;
 	protected int id;
+	private GameObject[] objects;
 	
 	protected Room(){
 		doors = new Door[4]; //Initialize the Door array
