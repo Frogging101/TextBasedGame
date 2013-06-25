@@ -13,9 +13,9 @@ public class RoomManager {
 	}
 	
 	/**
-	 * Gets a Room object from the collection of Rooms by its ID
+	 * Searches the Room array for a Room with a certain ID
 	 * @param id ID of the Room to retrieve
-	 * @return
+	 * @return The Room object with that ID
 	 */
 	public Room getRoomById(int id){
 		for(int i=0;i<rooms.size();i++){

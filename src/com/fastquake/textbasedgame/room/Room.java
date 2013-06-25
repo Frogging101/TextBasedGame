@@ -12,6 +12,10 @@ public class Room {
 		doorCount = 0;
 	}
 	
+	/**
+	 * Prints the description of the room, specifically the items, doors, and other dynamic elements.
+	 * Room subclasses will override this to add their own static descriptive text.
+	 */
 	public void describe(){
 		System.out.println();
 		String doorString = "There is a door to the "; //String to describe the doors
@@ -24,18 +28,18 @@ public class Room {
 			}
 		}
 		for(int i=0,appendedDoors=0;i<4;i++){
-			String iDir = Direction.values()[i].toString();
+			String iDir = Direction.values()[i].toString(); //Human-readable text representing the compass direction
 			if(doors[i] != null){
 				doorString += iDir;
 				appendedDoors++;
 				if(appendedDoors == doorCount){
 					doorString += ".";
 					break;
-				}else if(doorCount != 2)
+				}else if(doorCount != 2) //no commas if there are only 2 doors
 					doorString += ", ";
 			}
 			if(appendedDoors == doorCount-1 && doors[i+1] != null && doorCount != 1){
-				if(doorCount == 2)
+				if(doorCount == 2) //Without commas there are no spaces, so put one
 					doorString += " ";
 				doorString += "and ";
 			}
@@ -53,8 +57,17 @@ public class Room {
 	 * @param targetId The ID of the target room that the door leads to
 	 */
 	protected void addDoor(Direction direction, int targetId){
-		this.doors[direction.ordinal()] = new Door(targetId);
+		this.doors[direction.ordinal()] = new Door(targetId,false);
 		this.doorCount++;
+	}
+	
+	protected void addDoor(Direction direction, int targetId, boolean locked){
+		this.doors[direction.ordinal()] = new Door(targetId,locked);
+		this.doorCount++;
+	}
+	
+	protected Door getDoor(Direction direction){
+		return this.doors[direction.ordinal()];
 	}
 	
 	/**
@@ -64,7 +77,7 @@ public class Room {
 	 */
 	public Room getDoorTarget(Direction direction, RoomManager rm){
 		if(doors[direction.ordinal()] != null)
-			return rm.getRoomById(doors[direction.ordinal()].targetId);
+			return rm.getRoomById(doors[direction.ordinal()].getTargetId());
 		else
 			return null;
 	}

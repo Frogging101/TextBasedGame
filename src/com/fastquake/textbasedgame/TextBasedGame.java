@@ -21,6 +21,7 @@ public class TextBasedGame {
 		
 		System.out.println("Welcome to TextBasedGame.");
 		System.out.println("Type \"play\" to start a new game, or \"load\" to load a previous game.");
+		System.out.println();
 
 		while(!doShutdown){
 			currentRoom = rm.getRoomById(currentRoomId);
@@ -48,7 +49,7 @@ public class TextBasedGame {
 			move(Direction.SOUTH);
 		}else if(command.equals("west") || command.equals("w")){
 			move(Direction.WEST);
-		}else if(command.equals("look") || command.equals("examine")){
+		}else if(command.equals("look") || command.equals("examine") || command.equals("l")){
 			if(splitCommand.length>1){
 				//TODO: Handle object arguments, also "look at"
 			}else
