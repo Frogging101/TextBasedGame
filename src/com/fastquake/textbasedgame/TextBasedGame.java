@@ -91,6 +91,10 @@ public class TextBasedGame {
 					System.out.println("There is no " + object + " here.");
 				}
 			}
+		}else if(command.startsWith("help")){
+			printHelp();
+		}else if(command.equals("exit") || command.equals("quit")){
+			System.exit(0);
 		}
 	}
 	
@@ -100,5 +104,14 @@ public class TextBasedGame {
 			describedRoom = false;
 		}else
 			System.out.println("You cannot go that way.");
+	}
+	
+	private static void printHelp(){
+		System.out.println("This is a text-based game, which means that you play it by entering text commands.\n" +
+							"Available commands include: \n" +
+							"help - Displays this text\n"+
+							"open - Opens a door or other object\n"+
+							"n,e,s,w - Moves you north, east, south or west if possible\n"+
+							"exit - Terminates the program");
 	}
 }
