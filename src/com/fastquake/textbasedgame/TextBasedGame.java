@@ -57,29 +57,16 @@ public class TextBasedGame {
 		}else if(command.equals("west") || command.equals("w")){
 			move(Direction.WEST);
 		}else if(command.equals("look") || command.equals("examine") || command.equals("l")){
-			if(splitCommand.length>1){
-				//TODO: Handle object arguments, also "look at"
+			if(splitCommand.length>1){ //If the user entered more than just "look"
+				object = extractObjectName(splitCommand);
 			}else
 				currentRoom.describe();
 		}else if(command.equals("open")){
 			GameObject openObject;
 			if(splitCommand.length<2)
 				System.out.println("Open what?");
-			else
-			{
-				if(splitCommand[1].equals("the")){
-					for(int i=2;i<splitCommand.length;i++){
-						object += splitCommand[i];
-						if(!(i+1>=splitCommand.length))
-							object += " ";
-					}
-				}else{
-					for(int i=1;i< splitCommand.length;i++) {
-						object += splitCommand[i];
-						if(!(i+1 >= splitCommand.length))
-							object += " ";
-					}
-				}
+			else{
+				object = extractObjectName(splitCommand);
 				openObject = currentRoom.getObjectByName(object);
 				if(openObject != null){
 					if(openObject.isOpenable()){
@@ -113,5 +100,43 @@ public class TextBasedGame {
 							"open - Opens a door or other object\n"+
 							"n,e,s,w - Moves you north, east, south or west if possible\n"+
 							"exit - Terminates the program");
+	}
+	
+	/**
+	 * Extracts the object name from an array representing the words of a command
+	 * @param ignore A word to ignore, such at "at" (ex. "look at")
+	 * @param splitCommand Array containing the command split into words
+	 * @return The name of an object that the user probably entered.
+	 */
+	private static String extractObjectName(String[] splitCommand){
+		String objectStr = "";
+		int ignoredWords = 0;
+		//This loop removes certain words from the command string
+		for(int i=0;i<splitCommand.length-ignoredWords;i++){
+			if(splitCommand[i].equals("at") || splitCommand[i].equals("the")){ //If the word is an ignored word
+				if(!(i+1>=splitCommand.length)){ //If there is a next word
+					splitCommand[i] = null;
+					for(int k=i;k<splitCommand.length-1;k++)
+						swap(splitCommand,k,k+1);
+					ignoredWords++;
+					i--;
+				}else
+					return null;
+			}
+		}
+		//Now that those words have been removed, everything after the 
+		//first word will be considered part of the object name
+		for(int i=1;i<splitCommand.length-ignoredWords;i++){
+			objectStr += splitCommand[i];
+			if(!(i+1 >= splitCommand.length-ignoredWords))
+				objectStr += " ";
+		}
+		return objectStr;
+	}
+	
+	public static void swap(String array2[], int first, int second) {
+		String hold = array2[first];
+		array2[first] = array2[second];
+		array2[second] = hold;
 	}
 }
