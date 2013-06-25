@@ -59,6 +59,11 @@ public class TextBasedGame {
 		}else if(command.equals("look") || command.equals("examine") || command.equals("l")){
 			if(splitCommand.length>1){ //If the user entered more than just "look"
 				object = extractObjectName(splitCommand);
+				GameObject lookObject = currentRoom.getObjectByName(object);
+				if(lookObject != null)
+					lookObject.describe();
+				else
+					System.out.println("There is no " + object + " here");
 			}else
 				currentRoom.describe();
 		}else if(command.equals("open")){
