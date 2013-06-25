@@ -46,4 +46,20 @@ public class GameObject {
 			System.out.print(itemString);
 		}
 	}
+	
+	public String[] getNames(){
+		String[] outStrings = new String[otherNames.length+1];
+		outStrings[0] = this.name;
+		for(int i=1;i<otherNames.length;i++)
+			outStrings[i] = this.otherNames[i-1];
+		return outStrings;
+	}
+	
+	public boolean isOpenable(){
+		return this.openable;
+	}
+	
+	public boolean isOpen(){
+		return this.open;
+	}
 }

@@ -1,5 +1,7 @@
 package com.fastquake.textbasedgame.room;
 
+import java.util.ArrayList;
+
 import gameobject.GameObject;
 
 import com.fastquake.textbasedgame.Direction;
@@ -8,10 +10,11 @@ public class Room {
 	private Door[] doors;
 	private int doorCount;
 	protected int id;
-	private GameObject[] objects;
+	private ArrayList<GameObject> objects;
 	
 	protected Room(){
 		doors = new Door[4]; //Initialize the Door array
+		objects = new ArrayList<GameObject>();
 		doorCount = 0;
 	}
 	
@@ -83,5 +86,16 @@ public class Room {
 			return rm.getRoomById(doors[direction.ordinal()].getTargetId());
 		else
 			return null;
+	}
+	
+	public GameObject getObjectByName(String requestedName){
+		for(int i=0;i<objects.size();i++){
+			GameObject currentObject = objects.get(i);
+			for(int k=0;k<currentObject.getNames().length;k++){
+				if(currentObject.getNames()[k].equals(requestedName))
+					return currentObject;
+			}
+		}
+		return null;
 	}
 }

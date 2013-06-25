@@ -1,5 +1,7 @@
 package com.fastquake.textbasedgame;
 
+import gameobject.GameObject;
+
 import java.io.*;
 
 import com.fastquake.textbasedgame.room.Room;
@@ -7,6 +9,7 @@ import com.fastquake.textbasedgame.room.RoomManager;
 
 public class TextBasedGame {
 	public static RoomManager rm;
+	private static boolean describedRoom = false;
 	static Room currentRoom;
 	
 	/**
@@ -27,7 +30,10 @@ public class TextBasedGame {
 			currentRoom = rm.getRoomById(currentRoomId);
 			String command = "";
 			
-			currentRoom.describe();
+			if(!describedRoom){
+				currentRoom.describe();
+				describedRoom = true;
+			}
 			System.out.println();
 			System.out.print("> ");
 			command = input.readLine();
@@ -55,20 +61,43 @@ public class TextBasedGame {
 			}else
 				currentRoom.describe();
 		}else if(command.equals("open")){
-			if(splitCommand[1].equals("the")){
-				for(int i=2;i<splitCommand.length;i++){
-					object += splitCommand[i];
-					if(!(i+1>=splitCommand.length))
-						object += " ";
+			GameObject openObject;
+			if(splitCommand.length<2)
+				System.out.println("Open what?");
+			else
+			{
+				if(splitCommand[1].equals("the")){
+					for(int i=2;i<splitCommand.length;i++){
+						object += splitCommand[i];
+						if(!(i+1>=splitCommand.length))
+							object += " ";
+					}
+				}else{
+					for(int i=1;i< splitCommand.length;i++) {
+						object += splitCommand[i];
+						if(!(i+1 >= splitCommand.length))
+							object += " ";
+					}
+				}
+				openObject = currentRoom.getObjectByName(object);
+				if(openObject != null){
+					if(openObject.isOpenable()){
+						openObject.open();
+					}else{
+						System.out.println("You can't open the " + object);
+					}
+				}else{
+					System.out.println("There is no " + object + " here.");
 				}
 			}
 		}
 	}
 	
 	private static void move(Direction direction){
-		if(currentRoom.getDoorTarget(direction, rm) != null)
+		if(currentRoom.getDoorTarget(direction, rm) != null){
 			currentRoom = currentRoom.getDoorTarget(direction, rm);
-		else
+			describedRoom = false;
+		}else
 			System.out.println("You cannot go that way.");
 	}
 }
