@@ -41,13 +41,13 @@ public class TextBasedGame {
 		String object = "";
 		
 		if(command.equals("north") || command.equals("n")){
-			currentRoom = currentRoom.getDoorTarget(Direction.NORTH, rm);
+			move(Direction.NORTH);
 		}else if(command.equals("east") || command.equals("e")){
-			currentRoom = currentRoom.getDoorTarget(Direction.EAST, rm);
+			move(Direction.EAST);
 		}else if(command.equals("south") || command.equals("s")){
-			currentRoom = currentRoom.getDoorTarget(Direction.SOUTH, rm);
+			move(Direction.SOUTH);
 		}else if(command.equals("west") || command.equals("w")){
-			currentRoom = currentRoom.getDoorTarget(Direction.WEST, rm);
+			move(Direction.WEST);
 		}else if(command.equals("look") || command.equals("examine")){
 			if(splitCommand.length>1){
 				//TODO: Handle object arguments, also "look at"
@@ -56,5 +56,12 @@ public class TextBasedGame {
 		}else if(command.equals("open")){
 			//TODO: Open
 		}
-	}	
+	}
+	
+	private static void move(Direction direction){
+		if(currentRoom.getDoorTarget(direction, rm) != null)
+			currentRoom = currentRoom.getDoorTarget(direction, rm);
+		else
+			System.out.println("You cannot go that way.");
+	}
 }
