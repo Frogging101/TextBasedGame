@@ -15,7 +15,7 @@ public class TextBasedGame {
 	 */
 	public static void main(String[] args) throws IOException {
 		boolean doShutdown = false;
-		currentRoomId = 1;
+		int currentRoomId = 1;
 		rm = new RoomManager();
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		
