@@ -3,6 +3,12 @@ package gameobject;
 import java.util.ArrayList;
 import gameitem.GameItem;
 
+/**
+ * Class for Game Objects, which are world features that the player can interact with
+ * These are not the same as items, which are things that the player can carry
+ * @author Frogging101
+ *
+ */
 public class GameObject {
 	protected String examineText;
 	protected String name;
@@ -19,6 +25,9 @@ public class GameObject {
 		System.out.println(this.examineText);
 	}
 	
+	/**
+	 * Open the object, and if it is a container with items inside, list them
+	 */
 	public void open(){
 		this.open = true;
 		System.out.println("You open the " + openableName);
@@ -47,6 +56,10 @@ public class GameObject {
 		}
 	}
 	
+	/**
+	 * Returns the names that this object can be referred to as by the player
+	 * @return See description
+	 */
 	public String[] getNames(){
 		String[] outStrings = new String[otherNames.length+1];
 		outStrings[0] = this.name;

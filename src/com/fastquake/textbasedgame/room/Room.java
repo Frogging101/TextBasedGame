@@ -61,12 +61,19 @@ public class Room {
 	/**
 	 * Adds a door to the Room
 	 * @param targetId The ID of the target room that the door leads to
+	 * @param direction The compass direction of the door
 	 */
 	protected void addDoor(Direction direction, int targetId){
 		this.doors[direction.ordinal()] = new Door(targetId,false);
 		this.doorCount++;
 	}
 	
+	/**
+	 * Same as addDoor, but with the option to lock the door upon adding
+	 * @param direction
+	 * @param targetId
+	 * @param locked
+	 */
 	protected void addDoor(Direction direction, int targetId, boolean locked){
 		this.doors[direction.ordinal()] = new Door(targetId,locked);
 		this.doorCount++;
@@ -88,6 +95,11 @@ public class Room {
 			return null;
 	}
 	
+	/**
+	 * Gets an object in the room by its name(s)
+	 * @param requestedName The player-input name that is to be searched for
+	 * @return A GameObject in the room of that name
+	 */
 	public GameObject getObjectByName(String requestedName){
 		for(int i=0;i<objects.size();i++){
 			GameObject currentObject = objects.get(i);

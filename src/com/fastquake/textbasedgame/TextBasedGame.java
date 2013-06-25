@@ -17,7 +17,7 @@ public class TextBasedGame {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		boolean doShutdown = false;
+		boolean doShutdown = false; //TODO: Allow the player to exit
 		int currentRoomId = 1;
 		rm = new RoomManager();
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
@@ -30,7 +30,8 @@ public class TextBasedGame {
 			currentRoom = rm.getRoomById(currentRoomId);
 			String command = "";
 			
-			if(!describedRoom){
+			if(!describedRoom){ //We don't want to describe the room every time the player
+								//uses a command
 				currentRoom.describe();
 				describedRoom = true;
 			}
@@ -94,7 +95,7 @@ public class TextBasedGame {
 	}
 	
 	private static void move(Direction direction){
-		if(currentRoom.getDoorTarget(direction, rm) != null){
+		if(currentRoom.getDoorTarget(direction, rm) != null){ //If there is a door in that direction
 			currentRoom = currentRoom.getDoorTarget(direction, rm);
 			describedRoom = false;
 		}else
