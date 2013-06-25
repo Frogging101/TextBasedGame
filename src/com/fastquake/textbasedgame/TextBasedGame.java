@@ -9,18 +9,21 @@ import com.fastquake.textbasedgame.room.RoomManager;
 
 public class TextBasedGame {
 	public static RoomManager rm;
+	public static int score;
 	private static boolean describedRoom = false;
 	static Room currentRoom;
+	private static BufferedReader input;
 	
 	/**
 	 * @param args
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
+		score = 0;
 		boolean doShutdown = false; //TODO: Allow the player to exit
 		int currentRoomId = 1;
 		rm = new RoomManager();
-		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+		input = new BufferedReader(new InputStreamReader(System.in));
 		
 		System.out.println("Welcome to TextBasedGame.");
 		//System.out.println("Type \"play\" to start a new game, or \"load\" to load a previous game.");
@@ -146,5 +149,24 @@ public class TextBasedGame {
 		String hold = array2[first];
 		array2[first] = array2[second];
 		array2[second] = hold;
+	}
+	
+	public static void playerDie(){
+		System.out.println("You are dead. Game over.");
+		System.out.println();
+		System.out.println("Your final score is " + score + ".");
+		System.out.print("Enter 1 to play again, 2 to view highscores, or anything else to exit: ");
+		try{
+			String response = input.readLine();
+			if(response.equals("1")){
+				main(null);
+			}else if(response.equals("2")){
+				//TODO: Show high score list
+			}else
+				System.exit(0);
+		}catch(IOException e){ 	//Catch this so everything that calls it won't break. It'll never happen anyway.
+			e.printStackTrace();
+			System.exit(1);
+		}
 	}
 }
