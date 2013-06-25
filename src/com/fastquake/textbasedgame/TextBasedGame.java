@@ -63,10 +63,10 @@ public class TextBasedGame {
 				currentRoom.describe();
 		}else if(command.equals("open")){
 			GameObject openObject;
-			if(splitCommand.length<2)
+			object = extractObjectName(splitCommand);
+			if(object == null){
 				System.out.println("Open what?");
-			else{
-				object = extractObjectName(splitCommand);
+			}else{
 				openObject = currentRoom.getObjectByName(object);
 				if(openObject != null){
 					if(openObject.isOpenable()){
@@ -111,6 +111,9 @@ public class TextBasedGame {
 	private static String extractObjectName(String[] splitCommand){
 		String objectStr = "";
 		int ignoredWords = 0;
+		if(splitCommand.length<2) 	//If there are less than 2 words in the command string, 
+									//then the user did not specify an object
+			return null;
 		//This loop removes certain words from the command string
 		for(int i=0;i<splitCommand.length-ignoredWords;i++){
 			if(splitCommand[i].equals("at") || splitCommand[i].equals("the")){ //If the word is an ignored word
