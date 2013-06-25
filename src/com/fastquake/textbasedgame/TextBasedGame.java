@@ -55,7 +55,13 @@ public class TextBasedGame {
 			}else
 				currentRoom.describe();
 		}else if(command.equals("open")){
-			//TODO: Open
+			if(splitCommand[1].equals("the")){
+				for(int i=2;i<splitCommand.length;i++){
+					object += splitCommand[i];
+					if(!(i+1>=splitCommand.length))
+						object += " ";
+				}
+			}
 		}
 	}
 	
