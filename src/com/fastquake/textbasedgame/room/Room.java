@@ -9,6 +9,7 @@ import com.fastquake.textbasedgame.gameobject.GameObject;
 public class Room {
 	private Door[] doors;
 	private int doorCount;
+	protected String roomDescription;
 	protected int id;
 	protected ArrayList<GameObject> objects;
 	
@@ -16,6 +17,7 @@ public class Room {
 		doors = new Door[4]; //Initialize the Door array
 		objects = new ArrayList<GameObject>();
 		doorCount = 0;
+		roomDescription = "";
 	}
 	
 	/**
@@ -23,6 +25,7 @@ public class Room {
 	 * Room subclasses will override this to add their own static descriptive text.
 	 */
 	public void describe(){
+		System.out.println(roomDescription);
 		System.out.println();
 		String doorString = "There is a door to the "; //String to describe the doors
 		for(int i=0,k=0;i<4;i++){

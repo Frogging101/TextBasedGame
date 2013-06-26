@@ -56,7 +56,7 @@ public class TextBasedGame {
 		inputCommand = inputCommand.toLowerCase(); //Change it to lowercase so that there is no confusion due to case
 		String[] splitCommand = inputCommand.split(" ");
 		String command = splitCommand[0];
-		String object = "";
+		String object = extractObjectName(splitCommand);
 		
 		if(command.equals("north") || command.equals("n")){
 			move(Direction.NORTH);
@@ -68,7 +68,6 @@ public class TextBasedGame {
 			move(Direction.WEST);
 		}else if(command.equals("look") || command.equals("examine") || command.equals("l")){
 			if(splitCommand.length>1){ //If the user entered more than just "look"
-				object = extractObjectName(splitCommand);
 				GameObject lookObject = currentRoom.getObjectByName(object);
 				if(lookObject != null)
 					lookObject.describe();
@@ -78,7 +77,6 @@ public class TextBasedGame {
 				currentRoom.describe();
 		}else if(command.equals("open")){
 			GameObject openObject;
-			object = extractObjectName(splitCommand);
 			if(object == null){
 				System.out.println("Open what?");
 			}else{
@@ -97,6 +95,8 @@ public class TextBasedGame {
 			printHelp();
 		}else if(command.equals("exit") || command.equals("quit")){
 			System.exit(0);
+		}else if(currentRoom.getObjectByName(object) != null){
+			currentRoom.getObjectByName(object).handleCommand(command,object);
 		}
 	}
 	

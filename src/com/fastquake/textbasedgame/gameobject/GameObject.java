@@ -2,6 +2,7 @@ package com.fastquake.textbasedgame.gameobject;
 
 import java.util.ArrayList;
 
+import com.fastquake.textbasedgame.TextBasedGame;
 import com.fastquake.textbasedgame.gameitem.GameItem;
 
 /**
@@ -26,7 +27,7 @@ public class GameObject {
 	public void describe(){
 		System.out.println(this.examineText);
 		if(!examined){
-			System.out.println("I have examined me or some such shit");
+			TextBasedGame.score++;
 		}
 		examined = true;
 	}
@@ -42,7 +43,7 @@ public class GameObject {
 			int itemCount = contains.size();
 			String itemString = "";
 			for(int i=0,appended=0;i<contains.size();i++){
-				String itemName = contains.get(i).getName(); 
+				String itemName = contains.get(i).getNames()[0]; 
 				if(contains.get(i) != null){
 					itemString += itemName;
 					appended++;
@@ -72,6 +73,9 @@ public class GameObject {
 		for(int i=1;i<otherNames.length+1;i++)
 			outStrings[i] = this.otherNames[i-1];
 		return outStrings;
+	}
+	
+	public void handleCommand(String inputCommand, String object) {
 	}
 	
 	public boolean isOpenable(){
