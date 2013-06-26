@@ -1,10 +1,11 @@
 package com.fastquake.textbasedgame.gameobject;
 
-public class Desk extends GameObject{
+public class Desk extends Container{
 	public Desk(){
-		name = "desk";
-		openableName = "drawer";
-		openable = true;
-		open = false;
+		this.name = "desk";
+		this.otherNames = new String[]{"drawer"};
+		this.openableName = "drawer";
+		this.openable = true;
+		this.open = false;
 	}
 }
