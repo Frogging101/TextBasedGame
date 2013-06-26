@@ -163,34 +163,38 @@ public class TextBasedGame {
 		System.out.println();
 		System.out.println("Your final score is " + score + ".");
 		saveScore();
-		System.out.print("Enter 1 to play again, 2 to view highscores, or anything else to exit: ");
-		try{
-			String response = input.readLine();
-			if(response.equals("1")){
-				main(null);
-			}else if(response.equals("2")){
-				System.out.println("Would you like to sort them by time (most-to-least recent) or score (highest to lowest)?");
-				while(true){ //Input verification loop
-					System.out.print("Enter \"score\" or \"time\": ");
-					response = input.readLine().toLowerCase();
-					if(response.equals("time")){
-						loadScores(1);
-						break;
+		while(true){
+			System.out.print("Enter 1 to play again, 2 to view highscores, or anything else to exit: ");
+			try{
+				String response = input.readLine();
+				if(response.equals("1")){
+					main(null);
+				}else if(response.equals("2")){
+					System.out.println("Would you like to sort them by time (most-to-least recent) or score (highest to lowest)?");
+					while(true){ //Input verification loop
+						System.out.print("Enter \"score\" or \"time\": ");
+						response = input.readLine().toLowerCase();
+						if(response.equals("time")){
+							loadScores(1);
+							break;
+						}
+						if(response.equals("score")){
+							loadScores(2);
+							break;
+						}
+						else{
+							System.out.println("Invalid selection. Please try again.");
+							continue;
+						}
 					}
-					if(response.equals("score")){
-						loadScores(2);
-						break;
-					}
-					else{
-						System.out.println("Invalid selection. Please try again.");
-						continue;
-					}
-				}
-			}else
-				System.exit(0);
-		}catch(IOException e){ 	//Catch this so everything that calls it won't break. It'll never happen anyway.
-			e.printStackTrace();
-			System.exit(1);
+					continue;
+				}else
+					System.exit(0);
+				
+			}catch(IOException e){ 	//Catch this so everything that calls it won't break. It'll never happen anyway.
+				e.printStackTrace();
+				System.exit(1);
+			}
 		}
 	}
 	
