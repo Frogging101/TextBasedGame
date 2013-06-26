@@ -161,6 +161,7 @@ public class TextBasedGame {
 		System.out.println("You are dead. Game over.");
 		System.out.println();
 		System.out.println("Your final score is " + score + ".");
+		saveScore();
 		System.out.print("Enter 1 to play again, 2 to view highscores, or anything else to exit: ");
 		try{
 			String response = input.readLine();
@@ -197,11 +198,18 @@ public class TextBasedGame {
 	 * [current-unix-time]:[score]
 	 * @throws IOException
 	 */
-	public static void saveScore() throws IOException{
-		PrintWriter fileOut = new PrintWriter(new FileWriter("scores.txt",true));
+	public static void saveScore(){
+		PrintWriter fileOut = null;
+		try{
+			fileOut = new PrintWriter(new FileWriter("scores.txt",true));
+		}catch(IOException e){
+			e.printStackTrace();
+			System.exit(1);
+		}
 		long curTime = System.currentTimeMillis() / 1000L;
 		fileOut.println(curTime + ":" + score);
-		System.out.println("Your score has been saved.");
+	//	System.out.println("Your score has been saved.");
+		fileOut.close();
 	}
 	
 	/**
