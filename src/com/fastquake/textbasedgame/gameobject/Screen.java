@@ -12,6 +12,7 @@ public class Screen extends GameObject{
 	public Screen(){
 		super();
 		switchedOn = false;
+		this.locked = true;
 		this.name = "screen";
 		otherNames = new String[]{"touchscreen", "display", "lcd","monitor","tv"};
 		this.examineText = "The screen is blank, a small blue light on the bottom right corner emits a pulsating glow.";

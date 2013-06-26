@@ -7,7 +7,7 @@ import com.fastquake.textbasedgame.gameobject.*;
 public class Room1 extends Room {
 	Room1(){
 		super();
-		addDoor(Direction.NORTH,1);
+		addDoor(Direction.NORTH,1,true);
 		objects.add(new VentGrate());
 		objects.add(new Bed());
 		objects.add(new Desk());

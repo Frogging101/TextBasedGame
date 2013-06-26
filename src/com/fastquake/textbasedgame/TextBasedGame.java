@@ -70,7 +70,7 @@ public class TextBasedGame {
 				if(lookObject != null)
 					lookObject.describe();
 				else
-					System.out.println("There is no " + object + " here");
+					consoleOut("There is no " + object + " here.");
 			}else
 				currentRoom.describe();
 		}else if(command.equals("open")){
@@ -83,16 +83,22 @@ public class TextBasedGame {
 					if(openObject.isOpenable()){
 						openObject.open();
 					}else{
-						System.out.println("You can't open the " + object);
+						consoleOut("You can't open the " + object);
 					}
 				}else{
-					System.out.println("There is no " + object + " here.");
+					consoleOut("There is no " + object + " here.");
 				}
 			}
 		}else if(command.startsWith("help")){
 			printHelp();
 		}else if(command.equals("exit") || command.equals("quit")){
 			System.exit(0);
+		}else if(command.equals("touch") || command.equals("feel")){
+			GameObject touchObject = currentRoom.getObjectByName(object);
+			if(touchObject != null)
+				touchObject.touch();
+			else
+				consoleOut("There is no " + object + " here.");
 		}else if(currentRoom.getObjectByName(object) != null){
 			currentRoom.getObjectByName(object).handleCommand(command,object);
 		}
@@ -100,10 +106,14 @@ public class TextBasedGame {
 	
 	private static void move(Direction direction){
 		if(currentRoom.getDoorTarget(direction, rm) != null){ //If there is a door in that direction
+			if(currentRoom.getDoor(direction).locked){
+				consoleOut("The door is locked.");
+				return;
+			}
 			currentRoom = currentRoom.getDoorTarget(direction, rm);
 			describedRoom = false;
 		}else
-			System.out.println("You cannot go that way.");
+			consoleOut("You cannot go that way.");
 	}
 	
 	private static void printHelp(){

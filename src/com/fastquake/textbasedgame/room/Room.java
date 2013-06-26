@@ -83,7 +83,7 @@ public class Room {
 		this.doorCount++;
 	}
 	
-	protected Door getDoor(Direction direction){
+	public Door getDoor(Direction direction){
 		return this.doors[direction.ordinal()];
 	}
 	
