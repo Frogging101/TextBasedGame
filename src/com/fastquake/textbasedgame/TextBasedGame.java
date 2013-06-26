@@ -2,6 +2,7 @@ package com.fastquake.textbasedgame;
 
 
 import java.io.*;
+import java.util.Calendar;
 
 import com.fastquake.textbasedgame.gameobject.GameObject;
 import com.fastquake.textbasedgame.room.Room;
@@ -247,8 +248,18 @@ public class TextBasedGame {
 			//Create a score object out of these
 			scores[i] = new Score(Long.parseLong(curLineArray[0]),Integer.parseInt(curLineArray[1]));
 		}
+		if(sortField == 1)
+			scores = sortByTime(scores);
+		else if(sortField == 2)
+			scores = sortByScore(scores);
 		
-		
+		for(int i=0;i<scores.length;i++){
+			Calendar scoreDate = Calendar.getInstance();
+			scoreDate.setTimeInMillis(scores[i].time*1000);
+			System.out.print(scoreDate.get(Calendar.HOUR_OF_DAY) + ":" + scoreDate.get(Calendar.MINUTE) + " | ");
+			System.out.print(scoreDate.get(Calendar.DAY_OF_MONTH)+"."+scoreDate.get(Calendar.MONTH)+"."+scoreDate.get(Calendar.YEAR));
+			System.out.println(" - " + scores[i].score + " points");
+		}
 	}
 	
 	/**
@@ -260,17 +271,17 @@ public class TextBasedGame {
 		Score[] sorted = new Score[unsorted.length];
 		
 		for(int i=0,j=0;i<unsorted.length;i++){
-			Score largest = unsorted[i];
+			Score largest = new Score(unsorted[i].time,unsorted[i].score);
 			largest.score = Integer.MIN_VALUE;
 			int lastLargestIndex = 0;
 			for(int k=0;k<unsorted.length;k++){
-				if(unsorted[k].time > largest.time && unsorted[k].time != -1){
+				if(unsorted[k].score > largest.score && unsorted[k].score != -1){
 					largest = unsorted[k];
 					lastLargestIndex = k;
 				}
 			}
+			sorted[j] = new Score(largest.time,largest.score);
 			unsorted[lastLargestIndex].score = -1;
-			sorted[j] = largest;
 			j++;
 		}
 		return sorted;
@@ -285,7 +296,7 @@ public class TextBasedGame {
 		Score[] sorted = new Score[unsorted.length];
 		
 		for(int i=0,j=0;i<unsorted.length;i++){
-			Score largest = unsorted[i];
+			Score largest = new Score(unsorted[i].time,unsorted[i].score);
 			largest.time = Long.MIN_VALUE;
 			int lastLargestIndex = 0;
 			for(int k=0;k<unsorted.length;k++){
@@ -294,8 +305,8 @@ public class TextBasedGame {
 					lastLargestIndex = k;
 				}
 			}
+			sorted[j] = new Score(largest.time,largest.score);
 			unsorted[lastLargestIndex].time = -1;
-			sorted[j] = largest;
 			j++;
 		}
 		return sorted;
