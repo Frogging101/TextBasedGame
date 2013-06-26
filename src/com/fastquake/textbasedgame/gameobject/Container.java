@@ -7,6 +7,10 @@ import com.fastquake.textbasedgame.gameitem.GameItem;
 public class Container extends GameObject{
 	protected ArrayList<GameItem> contains;	
 	
+	public Container(){
+		contains = new ArrayList<GameItem>();
+	}
+	
 	public void addItem(GameItem item){
 		contains.add(item);
 	}
