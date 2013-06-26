@@ -25,9 +25,7 @@ public class TextBasedGame {
 		int currentRoomId = 1;
 		rm = new RoomManager();
 		input = new BufferedReader(new InputStreamReader(System.in));
-		
-		loadScores(1);
-		
+
 		File scoresFile = new File("scores.txt");
 		if(!scoresFile.exists()) //If the file doesn't exist
 			scoresFile.createNewFile(); //Create it
@@ -314,5 +312,33 @@ public class TextBasedGame {
 			j++;
 		}
 		return sorted;
+	}
+	
+	public static void consoleOut(String output){
+		final int consoleWidth = 80;
+		int lastLineEnd = 0;
+		String splitOutput = "";
+		
+		if(output.length()<consoleWidth){
+			System.out.println(output);
+			return;
+		}
+		int lineCount = output.length()/consoleWidth;
+		System.out.println(lineCount);
+		for(int i=0;i<lineCount;i++){
+			for(int j=consoleWidth*(i+1);true;j++){
+				if(Character.isWhitespace(output.charAt(j))){
+					char[] outputArray = output.toCharArray();
+					outputArray[j] = '\0';
+					output = String.valueOf(outputArray).replace("\0", "");
+					splitOutput += output.substring(consoleWidth*i+(lastLineEnd-consoleWidth*i), j);
+					splitOutput += "\n";
+					lastLineEnd = j;
+					break;
+				}
+			}
+		}
+		splitOutput += output.substring(lastLineEnd);
+		System.out.println(splitOutput);
 	}
 }

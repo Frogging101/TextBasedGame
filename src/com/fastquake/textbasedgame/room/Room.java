@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 import com.fastquake.textbasedgame.Direction;
+import com.fastquake.textbasedgame.TextBasedGame;
 import com.fastquake.textbasedgame.gameobject.GameObject;
 
 public class Room {
@@ -25,8 +26,8 @@ public class Room {
 	 * Room subclasses will override this to add their own static descriptive text.
 	 */
 	public void describe(){
-		System.out.println(roomDescription);
-		System.out.println();
+		TextBasedGame.consoleOut(roomDescription);
+		
 		String doorString = "There is a door to the "; //String to describe the doors
 		for(int i=0,k=0;i<4;i++){
 			if(doors[i] != null) //If a door occupies this slot (direction)
@@ -53,7 +54,7 @@ public class Room {
 				doorString += "and ";
 			}
 		}
-		System.out.println(doorString);
+		TextBasedGame.consoleOut(doorString);
 		//TODO: Print items
 	}
 	

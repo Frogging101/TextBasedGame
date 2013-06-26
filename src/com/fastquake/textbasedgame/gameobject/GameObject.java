@@ -25,7 +25,7 @@ public class GameObject {
 	protected ArrayList<GameItem> contains;
 	
 	public void describe(){
-		System.out.println(this.examineText);
+		TextBasedGame.consoleOut(this.examineText);
 		if(!examined){
 			TextBasedGame.score++;
 		}

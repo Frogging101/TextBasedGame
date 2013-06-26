@@ -1,5 +1,7 @@
 package com.fastquake.textbasedgame.gameobject;
 
+import com.fastquake.textbasedgame.TextBasedGame;
+
 public class Bed extends GameObject {
 	private boolean made;
 	private boolean removedSheets;
@@ -23,7 +25,7 @@ public class Bed extends GameObject {
 									"The pillow and duvet have been removed.";
 				this.removedSheets = true;
 			}else{
-				System.out.println("The bed is too heavy to take.");
+				TextBasedGame.consoleOut("The bed is too heavy to take.");
 			}
 		}
 	}
