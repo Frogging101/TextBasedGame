@@ -14,12 +14,20 @@ import com.fastquake.textbasedgame.gameitem.GameItem;
 public class GameObject{
 	protected String examineText;
 	protected String name;
+	protected String touchText;
 	protected String[] otherNames;
 	protected String openableName;
 	
 	protected boolean openable;
 	protected boolean open;
 	protected boolean examined;
+	
+	public GameObject(){
+		this.examineText = "";
+		this.touchText = "";
+		this.name = "";
+		this.otherNames = new String[0];
+	}
 	
 	public void describe(){
 		TextBasedGame.consoleOut(this.examineText);
@@ -34,7 +42,14 @@ public class GameObject{
 	 */
 	public void open(){
 		this.open = true;
-		System.out.println("You open the " + openableName);
+		TextBasedGame.consoleOut("You open the " + openableName);
+	}
+	
+	public void touch(){
+		if(touchText.isEmpty())
+			TextBasedGame.consoleOut("Nothing interesting happens.");
+		else
+			TextBasedGame.consoleOut(touchText);
 	}
 	
 	/**

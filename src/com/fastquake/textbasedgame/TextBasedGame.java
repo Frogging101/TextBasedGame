@@ -341,4 +341,26 @@ public class TextBasedGame {
 		splitOutput += output.substring(lastLineEnd);
 		System.out.println(splitOutput);
 	}
+	
+	public static int getNumericInput(String question){
+		int outputInt = 0;
+		while(true){ //Input verification loop
+			System.out.print(question);
+			try{
+				outputInt = Integer.parseInt(input.readLine());
+				break;
+			}catch(NumberFormatException e){
+				System.out.println("That is not a number. Please try again.");
+				continue;
+			}catch (IOException e){ //Unless the computer is seriously messed up, this should not happen
+				e.printStackTrace();
+				System.exit(1);
+			}
+		}
+		return outputInt;
+	}
+	
+	public static BufferedReader getStdin(){
+		return input;
+	}
 }

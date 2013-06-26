@@ -11,6 +11,7 @@ public class Room1 extends Room {
 		objects.add(new VentGrate());
 		objects.add(new Bed());
 		objects.add(new Desk());
+		objects.add(new Screen());
 		this.id = 1;
 	}
 	

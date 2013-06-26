@@ -8,6 +8,7 @@ public class Container extends GameObject{
 	protected ArrayList<GameItem> contains;	
 	
 	public Container(){
+		super();
 		contains = new ArrayList<GameItem>();
 	}
 	
