@@ -7,5 +7,11 @@ public class Desk extends Container{
 		this.openableName = "drawer";
 		this.openable = true;
 		this.open = false;
+		this.examineText = "It's a metal desk, with a drawer.";
+	}
+	
+	public void open(){
+		this.examineText = "It's a metal desk, with a drawer that has been opened.";
+		super.open();
 	}
 }

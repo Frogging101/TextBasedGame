@@ -324,7 +324,7 @@ public class TextBasedGame {
 			return;
 		}
 		int lineCount = output.length()/consoleWidth;
-		System.out.println(lineCount);
+		//System.out.println(lineCount);
 		for(int i=0;i<lineCount;i++){
 			for(int j=consoleWidth*(i+1);true;j++){
 				if(Character.isWhitespace(output.charAt(j))){

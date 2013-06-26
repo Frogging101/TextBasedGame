@@ -27,7 +27,7 @@ public class Room {
 	 */
 	public void describe(){
 		TextBasedGame.consoleOut(roomDescription);
-		
+		System.out.println();
 		String doorString = "There is a door to the "; //String to describe the doors
 		for(int i=0,k=0;i<4;i++){
 			if(doors[i] != null) //If a door occupies this slot (direction)

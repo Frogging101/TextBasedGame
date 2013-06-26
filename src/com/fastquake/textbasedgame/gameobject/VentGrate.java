@@ -19,7 +19,9 @@ public class VentGrate extends GameObject{
 			System.out.println("You attempt to remove the grate, but it is electrically charged.\n" +
 								"A surge of electricity flows through you and you are killed instantly.");
 			TextBasedGame.playerDie();
-		}else
+		}else{
+			this.examineText = "Where the grate used to be, there is now an exposed ventilation shaft. It looks like a long drop.";
 			super.open();
+		}
 	}
 }
